@@ -1,5 +1,9 @@
 package com.corndel.nozama.exercises;
 
+import io.javalin.http.BadRequestResponse;
+import io.javalin.http.ForbiddenResponse;
+import io.javalin.http.UnauthorizedResponse;
+
 public class D3E2 {
 
   public class Account {
@@ -28,14 +32,20 @@ public class D3E2 {
      * @throws Exception if any of the checks fail
      */
     public void updateUsername(String newUsername, String passwordAttempt) throws Exception {
-      // TODO: If newUsername is not given, throw a BadRequestResponse
-
-      // TODO: If passwordAttempt is not given, throw an UnauthorizedResponse
-
-      // TODO: If passwordAttempt is given but not correct, throw a ForbiddenResponse
-
-      // TODO: If newUsername is given and passwordAttempt is correct, update the
-      // username
+      // If newUsername is not given, throw a BadRequestResponse
+      if (newUsername == null) {
+        throw new BadRequestResponse("No username given");
+      }
+      // If passwordAttempt is not given, throw an UnauthorizedResponse
+      if (passwordAttempt == null) {
+        throw new UnauthorizedResponse("No password credentials given");
+      }
+      // If passwordAttempt is given but not correct, throw a ForbiddenResponse
+      if (!password.equals(passwordAttempt)) {
+        throw new ForbiddenResponse("Incorrect password");
+      }
+      // If newUsername is given and passwordAttempt is correct, update the username
+      this.username = newUsername;
     }
   }
 }
